@@ -1,0 +1,20 @@
+.a_emoji {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 50px;
+    max-height: 100px;
+}
+.table-custom {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table-custom td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
