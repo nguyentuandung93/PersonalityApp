@@ -17,7 +17,7 @@
 	<title>ログイン画面</title>
 </head>
 <body>
-	<form class="form-signin" id="frm_login" action="check_login" method="post">
+	<form class="form-signin" id="frm_login" action="login" namespace="/" method="post">
       <div class="text-center mb-4">
         <img class="mb-4" src="" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">ログイン</h1>
@@ -25,7 +25,6 @@
       </div>
       <div class="form-group">
       	<s:textfield name="loginModel.username" class="form-control" label="ユーザー名" autocomplete="off"></s:textfield>
-      	<!-- autocomplete="off" required autofocus -->
       </div>
       <div class="form-group">
       	<s:password name="loginModel.password" class="form-control" label="パスワード" autocomplete="off"></s:password>
@@ -36,12 +35,15 @@
       <a href="javascript:login()" type="button" class="btn btn-lg btn-primary btn-block">ログイン</a>
       <p class="mt-4 mb-3 text-muted text-center">登録してない方はこちらから<a href="javascript:register_form()">ユーザー登録</a></p>
     </form>
-	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<%@ include file="../common/footer.jsp" %>
 </body>
 <script>
+	$(document).ready(function() {
+		$("#loginModel_username").focus();
+	});
 	function login() {
-		var username = $("#userModel_username").val();
-		var password = $("#userModel_password").val();
+		var username = $("#loginModel_username").val();
+		var password = $("#loginModel_password").val();
 		if (username == '') {
 			alert('ユーザー名を入力してください。');
 		} else {

@@ -7,6 +7,6 @@
 <title>ユーザー登録失敗画面</title>
 </head>
 <body>
-	<h2><%=request.getAttribute("msg")%></h2>
+	<h2>登録できませんでした</h2>
 </body>
 </html>

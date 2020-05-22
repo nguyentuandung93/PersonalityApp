@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/common.css">
+
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/diary.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
@@ -15,9 +17,10 @@
 	<title>日記リスト</title>
 </head>
 <body>
-	<div class="container">
+	<%@ include file="../common/header.jsp" %>
+	<div id="content">
 		<h2>登録した日記リスト</h2>
-		<a href="./add">日記を追加</a>
+		<a href="./diary/add">日記を追加</a>
 		<table class="table table-striped table-custom">
 		  <thead>
 		    <tr>
@@ -45,19 +48,20 @@
 			<input id="diaryModel_diary_id" name="diaryModel.diary_id" type="hidden"/>
 		</form>
 	</div>
+	<%@ include file="../common/footer.jsp" %>
 </body>
 <script>
 	function edit_diary(diary_id) {
 		$("#diaryModel_diary_id").val(diary_id);
 		$("#frm_edit_delete").attr("method", "post");
-		$("#frm_edit_delete").attr("action", "edit");
+		$("#frm_edit_delete").attr("action", "diary/edit");
 		$("#frm_edit_delete").submit();
 	}
 	function delete_diary(diary_id) {
 		if (confirm("日記を削除してもよろしいでしょうか？")) {
 			$("#diaryModel_diary_id").val(diary_id);
 			$("#frm_edit_delete").attr("method", "post");
-			$("#frm_edit_delete").attr("action", "delete");
+			$("#frm_edit_delete").attr("action", "diary/delete");
 			$("#frm_edit_delete").submit();
 		}
 	}

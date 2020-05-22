@@ -6,10 +6,10 @@ import model.UserModel;
 public interface LoginDAO {
 	// ユーザーIDを取得
 	boolean checkUser(LoginModel loginModel);
-//	// ユーザー名存在をチェック
-//	boolean issetUser(String userName);
-//	//
-//	int addUser(UserModel userModel);
+	// ユーザー名存在をチェック
+	boolean issetUsername(String userName);
+	//　ユーザーを登録
+	int registUser(LoginModel loginModel);
 //	// ユーザーログイン情報を更新
 //	int updateUserLogin(UserModel userModel);
 //	// ユーザー情報を取得

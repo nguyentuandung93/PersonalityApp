@@ -6,36 +6,65 @@
 <struts>
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
-	<constant name="struts.custom.i18n.resources"
-		value="ApplicationResources" />
+	<constant name="struts.custom.i18n.resources" value="global" />
+	<constant name="struts.multipart.parser=jakarta" value="jakarta" />
+	<!-- <constant name="struts.multipart.saveDir" value="" /> -->
+	<constant name="struts.multipart.maxSize" value="2097152" />
 
 	<package name="login" namespace="/" extends="struts-default">
-		<action name="login" class="controller.LoginAction" method="login">
-			<result name="success">/login/login.jsp</result>
-			<result name="error">error.jsp</result>
-		</action>
-		<action name="check_login" class="controller.LoginAction" method="check_login">
-			<result name="success">main.jsp</result>
+		<action name="" class="controller.LoginAction" method="login">
+			<result name="input">/login/login.jsp</result>
+			<result name="success" type="redirectAction">main</result>
 			<result name="error">/login/fail.jsp</result>
 		</action>
-		<!-- <action name="create" class="controller.DiaryAction" method="create">
-			<result name="success" type="redirectAction">list</result>
+		<action name="login" class="controller.LoginAction" method="login">
+			<result name="input">/login/login.jsp</result>
+			<result name="success" type="redirectAction">main</result>
+			<result name="error">/login/fail.jsp</result>
+		</action>
+ 		<action name="main" class="controller.MainAction" method="main">
+			<result name="input">/login/login.jsp</result>
+			<result name="success">main.jsp</result>
 			<result name="error">error.jsp</result>
 		</action>
-		<action name="edit" class="controller.DiaryAction" method="edit_form">
-			<result name="success">/diary/edit.jsp</result>
+		<action name="register" class="controller.RegistAction" method="regist">
+            <interceptor-ref name="exception"/>
+            <interceptor-ref name="i18n"/>
+       		<interceptor-ref name="fileUpload">
+	            <param name="allowedTypes">image/*</param>
+	            <param name="maximumSize">1020000</param>
+        	</interceptor-ref>
+            <interceptor-ref name="params">
+                <param name="excludeParams">dojo\..** ,^struts\..** </param>
+            </interceptor-ref>
+            <interceptor-ref name="validation">
+                <param name="excludeMethods">input,back,cancel,browse</param>
+            </interceptor-ref>
+            <interceptor-ref name="workflow">
+                <param name="excludeMethods">input,back,cancel,browse</param>
+            </interceptor-ref>
+			<result name="input">/register/register.jsp</result>
+			<result name="success">/register/success.jsp</result>
 			<result name="error">error.jsp</result>
 		</action>
-		<action name="update" class="controller.DiaryAction" method="update">
-			<result name="success" type="redirectAction">list</result>
+		<action name="diary" class="controller.DiaryAction" method="list">
+			<result name="success">/diary/list.jsp</result>
 			<result name="error">error.jsp</result>
 		</action>
-		<action name="delete" class="controller.DiaryAction" method="delete">
-			<result name="success" type="redirect">list</result>
+		<action name="profile" class="controller.ProfileAction" method="profile">
+			<result name="success">/profile/main.jsp</result>
 			<result name="error">error.jsp</result>
-		</action> -->
+		</action>
+		<action name="logout" class="controller.LogoutAction" method="logout">
+			<result name="success">/login/login.jsp</result>
+			<result name="error"></result>
+		</action>
 	</package>
 	<package name="diary" namespace="/diary" extends="struts-default">
+		<action name="" class="controller.DiaryAction" method="list">
+			<result name="success">/diary/list.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
 		<action name="list" class="controller.DiaryAction" method="list">
 			<result name="success">/diary/list.jsp</result>
 			<result name="error">error.jsp</result>

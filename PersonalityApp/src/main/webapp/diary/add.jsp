@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/diary.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
@@ -22,7 +23,8 @@
 	<title>日記追加</title>
 </head>
 <body>
-	<div class="container">
+	<%@ include file="../common/header.jsp" %>
+	<div id="content">
 		<div class="fm-center"><h2>日記追加フォーム</h2></div>
 		<form id="frm_create" action="create" method="post">
 		  <div class="form-group"><s:textfield name="diaryModel.title" class="form-control" label="タイトル"></s:textfield></div>
@@ -42,6 +44,7 @@
 		  <a href="javascript:diary_regist()" type="button" class="btn btn-primary">登録</a>
 		</form>
 	</div>
+	<%@ include file="../common/footer.jsp" %>
 </body>
 <script type="text/javascript">
     $('.datepicker').datepicker({

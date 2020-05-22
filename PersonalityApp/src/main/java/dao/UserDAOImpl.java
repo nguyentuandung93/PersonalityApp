@@ -10,92 +10,41 @@ import utils.DBConnection;
 
 public class UserDAOImpl implements UserDAO {
 	
-	public int getUserId(UserModel userModel) {
-		int id = 0;
+	public UserModel selectUser(String username, String password) {
+		UserModel userModel = new UserModel();
 		String sql = "SELECT * FROM m_user WHERE username = ? and password = ? ";
 		Connection connection = DBConnection.getConnection();
 		try {
 			PreparedStatement preparedStatement;
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, userModel.getUsername());
-			preparedStatement.setString(2, userModel.getPassword());
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
 //			System.out.println(preparedStatement);
 
 			ResultSet rs = preparedStatement.executeQuery();
-			if (rs.next()) {
-				id = rs.getInt("id");
-			} else {
-				id = 0;
+			while (rs.next()) {
+				userModel.setId(rs.getInt("id"));
+				userModel.setName(rs.getString("name"));
+				userModel.setEmail(rs.getString("email"));
+				userModel.setImage_real_name(rs.getString("image_real_name"));
+				userModel.setImage_name(rs.getString("image_name"));
+				userModel.setRegist_date(rs.getString("regist_date"));
+				userModel.setUpdate_date(rs.getString("update_date"));
+				userModel.setLast_login(rs.getString("last_login"));
+				userModel.setThis_login(rs.getString("this_login"));
+				userModel.setFacebook(rs.getString("facebook"));
+				userModel.setTwitter(rs.getString("twitter"));
+				userModel.setInstagram(rs.getString("instagram"));
+				userModel.setIntroduction(rs.getString("introduction"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return id;
-	}
-	
-	public boolean issetUser(String userName) {
-		boolean status = false;
-		String sql = "SELECT * from m_user where username = ?";
-		Connection connection = DBConnection.getConnection();
-		try {
-			PreparedStatement preparedStatement;
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, userName);
-			System.out.println(preparedStatement);
-
-			ResultSet rs = preparedStatement.executeQuery();
-			status = rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return status;
-	}
-	
-	public int addUser(UserModel userModel) {
-		int result = 0;
-		String sql = "INSERT INTO m_user(username, password, image_real_name, image_name, regist_date) VALUES (?, ?, ?, ?, ?);";
-		Connection connection = DBConnection.getConnection();
-		
-		try {
-			PreparedStatement preparedStatement;
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, userModel.getUsername());
-			preparedStatement.setString(2, userModel.getPassword());
-			preparedStatement.setString(3, userModel.getImage_real_name());
-			preparedStatement.setString(4, userModel.getImage_name());
-			preparedStatement.setString(5, userModel.getRegist_date());
-
-			System.out.println(preparedStatement);
-			result = preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-	
-	public int updateUserLogin(UserModel userModel) {
-		int result = 0;
-		String sql = "UPDATE m_user SET last_login = ?, this_login = ? WHERE id = ?;";
-		Connection connection = DBConnection.getConnection();
-		try {
-			
-			PreparedStatement preparedStatement;
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, userModel.getLast_login());
-			preparedStatement.setString(2, userModel.getThis_login());
-			preparedStatement.setString(3, Integer.toString(userModel.getId()));
-			System.out.println(preparedStatement);
-
-			result = preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
+		return userModel;
 	}
 	
 	// ユーザー情報を取得
-	public UserModel getUserInfo(UserModel userModel) {
+	public UserModel selectUser(UserModel userModel) {
 		String sql = "SELECT * FROM m_user WHERE id = ?;";
 		Connection connection = DBConnection.getConnection();
 		try {
@@ -124,6 +73,26 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		}
 		return userModel;
+	}
+	
+	public int updateUserLogin(UserModel userModel) {
+		int result = 0;
+		String sql = "UPDATE m_user SET last_login = ?, this_login = ? WHERE id = ?;";
+		Connection connection = DBConnection.getConnection();
+		try {
+			
+			PreparedStatement preparedStatement;
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userModel.getLast_login());
+			preparedStatement.setString(2, userModel.getThis_login());
+			preparedStatement.setString(3, Integer.toString(userModel.getId()));
+			System.out.println(preparedStatement);
+
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	// ユーザー情報を更新

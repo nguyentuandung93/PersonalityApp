@@ -1,8 +1,6 @@
+<%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.UserModel"%>
-<%
-UserModel userModel = (UserModel) request.getAttribute("userModel");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,10 +14,10 @@ UserModel userModel = (UserModel) request.getAttribute("userModel");
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex, nofollow"/>
-	<title>ユーザー画面</title>
+	<title>プロフィール画面</title>
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"></jsp:include>
+	<%@ include file="../common/header.jsp" %>
 	<div id="content">
 		<div class="col-lg-12 order-lg-12">
 			<ul class="nav nav-tabs col-lg-12 order-lg-12" id="tab_list">
@@ -39,7 +37,7 @@ UserModel userModel = (UserModel) request.getAttribute("userModel");
 		</div>
            <div class="main-content row my-2">
            	<div class="col-md-2 col-lg-2 text-center">
-	            <img src="<%=request.getContextPath()%>/upload/user/<%=userModel.getImage_real_name()%>" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+	            <img src="<%=request.getContextPath()%>/upload/user/${userModel.getImage_real_name()}" class="mx-auto img-fluid img-circle d-block" alt="avatar">
 				<a href="javascript:edit_image()" class="button edit-image d-none" id="edit_image">画像を変更<i class="far fa-edit"></i></a>
 				<div class="custom-file d-none" id="custom_image">
 				  <input type="file" class="custom-file-input" id="customFile" name="custom[file][]" multiple>
@@ -50,9 +48,10 @@ UserModel userModel = (UserModel) request.getAttribute("userModel");
                 <div class="tab-pane row active" id="profile">
                     <div class="row">
                         <div class="col-md-6">
-                        	<h2><%=userModel.getUsername()%></h2>
+                        	<h2>${userModel.getUsername()}</h2>
                         	<h6>自己紹介</h6>
-                            <p><% if (userModel.getIntroduction() != null) { %><%=userModel.getIntroduction()%><% }%></p>
+                            <%-- <p><% if (userModel.getIntroduction() != null) { %><%=userModel.getIntroduction()%><% }%></p> --%>
+                           	<p>${userModel.getIntroduction()}</p>
                            </div>
                         <div class="col-md-6">
                         	<h6>基本</h6>
@@ -60,44 +59,44 @@ UserModel userModel = (UserModel) request.getAttribute("userModel");
 								<div class="profile-info-row">
 									<div class="profile-info-name">名前</div>
 									<div class="profile-info-value">
-										<span><%=userModel.getName()%></span>
+										<span>${userModel.getName()}</span>
 									</div>
 								</div>
 								<div class="profile-info-row">
 									<div class="profile-info-name">メール</div>
 									<div class="profile-info-value">
-										<span><%=userModel.getEmail()%></span>
+										<span>${userModel.getEmail()}</span>
 									</div>
 								</div>
 								<div class="profile-info-row">
 									<div class="profile-info-name">登録期間</div>
 									<div class="profile-info-value">
-										<span><%=userModel.getRegist_date()%></span>
+										<span>${userModel.getRegist_date()}</span>
 									</div>
 								</div>
 								<div class="profile-info-row">
 									<div class="profile-info-name">Last login</div>
 									<div class="profile-info-value">
-										<span><%=userModel.getLast_login()%></span>
+										<span>${userModel.getLast_login()}</span>
 									</div>
 								</div>
                         	</div>
                             <h6>ウェブサイト</h6>
                             <ul class="profile-web-row">
-                            	<li><a href="<%=userModel.getFacebook()%>" class="web-row-a"><i class="fab fa-facebook-square"></i><span class="web-row-span">Facebook</span></a></li>
-                            	<li><a href="<%=userModel.getTwitter()%>" class="web-row-a"><i class="fab fa-twitter-square"></i><span class="web-row-span">Twitter</span></a></li>
-                            	<li><a href="<%=userModel.getInstagram()%>" class="web-row-a"><i class="fab fa-instagram-square"></i><span class="web-row-span">Instagram</span></a></li>
+                            	<li><a href="${userModel.getFacebook()}" class="web-row-a"><i class="fab fa-facebook-square"></i><span class="web-row-span">Facebook</span></a></li>
+                            	<li><a href="${userModel.getTwitter()}" class="web-row-a"><i class="fab fa-twitter-square"></i><span class="web-row-span">Twitter</span></a></li>
+                            	<li><a href="${userModel.getInstagram()}" class="web-row-a"><i class="fab fa-instagram-square"></i><span class="web-row-span">Instagram</span></a></li>
                             </ul>
                         </div>
                     </div>
                 </div><!-- profile tab -->
                 <div class="tab-pane" id="edit">
-                <% 
+                <%-- <% 
                 String[] nameArr = {"username", "password", "re_password", "name", "email", "facebook", "twitter", "instagram", "introduction"};
                 String[] realNameArr = {"ユーザー名", "パスワード", "パスワード確認", "名前", "メール", "フェイスブック", "ツイッター", "インスタグラム", "自己紹介"};
-                String[] valueArr = {userModel.getUsername(), userModel.getPassword(), userModel.getPassword(), userModel.getName(), userModel.getEmail(), userModel.getFacebook(), userModel.getTwitter(), userModel.getInstagram(), userModel.getIntroduction()}; 
-                %>
-                    <form id="frm_user_edit" name="frm_user_edit" method="post">
+                String[] valueArr = {"" + ${userModel.getUsername()}, userModel.getPassword(), userModel.getPassword(), userModel.getName(), userModel.getEmail(), userModel.getFacebook(), userModel.getTwitter(), userModel.getInstagram(), userModel.getIntroduction()}; 
+                %> --%>
+                    <%-- <form id="frm_user_edit" name="frm_user_edit" method="post">
                     	<% int i = 0; for (i = 0; i < nameArr.length; i++) { %>
                    		<div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"><%=realNameArr[i]%></label>
@@ -111,7 +110,7 @@ UserModel userModel = (UserModel) request.getAttribute("userModel");
                             </div>
                         </div>
                     	<% } %>
-                    	<input type="hidden" name="user_id" value="<%=userModel.getId() %>"/>
+                    	<input type="hidden" name="user_id" value="${userModel.getId()}"/>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-9">
@@ -119,7 +118,7 @@ UserModel userModel = (UserModel) request.getAttribute("userModel");
                                 <a href="javascript:user_save()" type="button" class="btn btn-primary">保存</a>
                             </div>
                         </div>
-                    </form>
+                    </form> --%>
                 </div><!-- edit tab -->
                 <div class="tab-pane" id="info">お知らせ
                     <div class="alert alert-info alert-dismissable">
@@ -192,7 +191,7 @@ UserModel userModel = (UserModel) request.getAttribute("userModel");
             </div>
         </div>
 	</div>
-	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<%@ include file="../common/footer.jsp" %>
 </body>
 <script>
 	
