@@ -516,16 +516,9 @@
 	});
 </script>
 <style>
-html, body {
-	margin: 0;
-	padding: 0;
-	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-	font-size: 14px;
-}
-
 #calendar {
-	max-width: 900px;
-	margin: 40px auto;
+	width: calc(100% - 250px);
+	margin-left: 220px;
 }
 </style>
 </html>

@@ -18,14 +18,6 @@ public class LogoutAction extends ActionSupport implements SessionAware  {
 		session.remove("login_flg");
 		return "success";
 	}
-//	@Override
-//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		HttpSession session = req.getSession();
-//		if (session != null) {
-//			session.invalidate();
-//		}
-//		resp.sendRedirect(req.getContextPath() + "/login");
-//	}
 
 	public Map<String, Object> getSession() {
 		return session;

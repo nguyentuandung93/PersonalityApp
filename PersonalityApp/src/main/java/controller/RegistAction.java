@@ -24,9 +24,22 @@ public class RegistAction extends ActionSupport implements ValidationAware {
 	private String uploadUserPath;
 	public RegistAction() {
 		ServletContext context = ServletActionContext.getServletContext();
-		String path = "/upload/user";
-		uploadUserPath= context.getRealPath(path);
-		System.out.println(uploadUserPath);
+		String uploadPath = context.getRealPath("/upload");
+		File uploadDir = new File(uploadPath);
+		String uploadTempPath = uploadPath + "/temp/"; 
+		File uploadTempDir = new File(uploadTempPath);
+		uploadUserPath = uploadPath + "/user/";
+		File uploadUserDir = new File(uploadUserPath);
+		
+        if (!uploadDir.exists()) {
+        	uploadDir.mkdir();
+        }
+        if (!uploadTempDir.exists()) {
+        	uploadTempDir.mkdir();
+        }
+        if (!uploadUserDir.exists()) {
+        	uploadUserDir.mkdir();
+        }
 	}
 
 	public String regist() {

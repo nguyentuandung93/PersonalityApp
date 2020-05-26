@@ -33,8 +33,6 @@
       </div>
       <div class="form-group">
       	<s:file name="fileUpload" class="form-control" autocomplete="off" accept="image/*" label="アップロード画像"></s:file>
-        <!-- <label for="image_file">アップロード画像</label>
-        <input type="file" id="image_file" name="image_file" class="form-control" autocomplete="off" accept="image/*"> -->
       </div>
       <a href="javascript:register()" type="button" class="btn btn-lg btn-primary btn-block">登録</a>
       <p class="mt-4 mb-3 text-muted text-center">既に登録した方はこちらから<a href="javascript:login_form()">ログイン</a></p>

@@ -39,7 +39,7 @@
 		  	<a href="javascript:select_emoji(3)" id="a_emoji_3" class="a_emoji"><i class="far fa-angry fa-2x" title="怒り"></i></a>
 		  </div>
 		  <div class="form-group">
-		  	<s:textfield name="diaryModel.save_date" class="datepicker" label="保存日"></s:textfield>
+		  	<s:textfield name="diaryModel.save_date" class="datepicker" label="保存日" autocomplete="off"></s:textfield>
 		  </div>
 		  <s:textfield name="diaryModel.diary_id" type="hidden"></s:textfield>
 		  <s:textfield name="diaryModel.user_id" type="hidden"></s:textfield>

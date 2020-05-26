@@ -9,7 +9,7 @@
 	<constant name="struts.custom.i18n.resources" value="global" />
 	<constant name="struts.multipart.parser=jakarta" value="jakarta" />
 	<!-- <constant name="struts.multipart.saveDir" value="" /> -->
-	<constant name="struts.multipart.maxSize" value="2097152" />
+	<constant name="struts.multipart.maxSize" value="102400000" />
 
 	<package name="login" namespace="/" extends="struts-default">
 		<action name="" class="controller.LoginAction" method="login">
@@ -48,16 +48,32 @@
 			<result name="error">error.jsp</result>
 		</action>
 		<action name="diary" class="controller.DiaryAction" method="list">
+			<result name="input">/login/login.jsp</result>
 			<result name="success">/diary/list.jsp</result>
 			<result name="error">error.jsp</result>
 		</action>
 		<action name="profile" class="controller.ProfileAction" method="profile">
+			<result name="input">/login/login.jsp</result>
 			<result name="success">/profile/main.jsp</result>
 			<result name="error">error.jsp</result>
 		</action>
 		<action name="logout" class="controller.LogoutAction" method="logout">
 			<result name="success">/login/login.jsp</result>
 			<result name="error"></result>
+		</action>
+	</package>
+	<package name="json-default" extends="struts-default">
+	    <result-types>
+	        <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+	    </result-types>
+	    <interceptors>
+	        <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+	    </interceptors>
+	</package>
+	<package name="profile" extends="json-default">
+		<action name="profile_update" class="controller.ProfileAction" method="update">
+			<result name="success" type="json"><param name="root">ret</param></result>
+			<result name="error">error.jsp</result>
 		</action>
 	</package>
 	<package name="diary" namespace="/diary" extends="struts-default">

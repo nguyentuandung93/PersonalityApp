@@ -9,12 +9,12 @@
     border-top: 1px dotted #D5E4F1
 }
 .profile-info-name {
-    text-align: right;
+    text-align: left;
     padding: 6px 10px 6px 4px;
     font-weight: 400;
     color: #667E99;
     background-color: transparent;
-    width: 110px;
+    width: 30%;
     vertical-align: middle
 }
 .profile-info-value {
@@ -40,8 +40,6 @@
 }
 .custom-file {
   overflow: hidden;
-  margin: 0 18px 0 18px;
-  width: 150px;
 }
 .custom-file-label {
   white-space: nowrap;

@@ -54,14 +54,14 @@
 	function edit_diary(diary_id) {
 		$("#diaryModel_diary_id").val(diary_id);
 		$("#frm_edit_delete").attr("method", "post");
-		$("#frm_edit_delete").attr("action", "diary/edit");
+		$("#frm_edit_delete").attr("action", "<%=request.getContextPath()%>/diary/edit");
 		$("#frm_edit_delete").submit();
 	}
 	function delete_diary(diary_id) {
 		if (confirm("日記を削除してもよろしいでしょうか？")) {
 			$("#diaryModel_diary_id").val(diary_id);
 			$("#frm_edit_delete").attr("method", "post");
-			$("#frm_edit_delete").attr("action", "diary/delete");
+			$("#frm_edit_delete").attr("action", "<%=request.getContextPath()%>/diary/delete");
 			$("#frm_edit_delete").submit();
 		}
 	}

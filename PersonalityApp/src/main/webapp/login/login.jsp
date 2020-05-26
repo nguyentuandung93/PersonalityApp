@@ -40,6 +40,11 @@
 <script>
 	$(document).ready(function() {
 		$("#loginModel_username").focus();
+		$(document).on('keypress',function(e) {
+		    if (e.which == 13) {
+		    	login();
+		    }
+		});
 	});
 	function login() {
 		var username = $("#loginModel_username").val();
