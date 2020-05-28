@@ -17,7 +17,7 @@
 	<title>ログイン画面</title>
 </head>
 <body>
-	<form class="form-signin" id="frm_login" action="login" namespace="/" method="post">
+	<form class="form-signin" id="frm_login" action="login" method="post">
       <div class="text-center mb-4">
         <img class="mb-4" src="" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">ログイン</h1>

@@ -39,7 +39,7 @@
 	<%@ include file="./common/header.jsp" %>
 	
 	<div id='calendar' class="fc fc-bootstrap4">
-	<a href="./diary/list">Diary</a>
+	<a href="https://fullcalendar.io/docs/v3/bootstrap4-theme-demo">https://fullcalendar.io/docs/v3/bootstrap4-theme-demo</a>
 		<div class="fc-toolbar fc-header-toolbar">
 			<div class="fc-left">
 				<div class="btn-group">
