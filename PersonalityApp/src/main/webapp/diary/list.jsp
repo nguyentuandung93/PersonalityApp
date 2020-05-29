@@ -34,7 +34,7 @@
 		  	<c:forEach var="diary" items="${diaryList}">
 		    <tr>
 		      <td>${diary.title}</td>
-		      <td>${diary.content}</td>
+		      <td style="white-space: pre-line">${diary.content}</td>
 		      <td>${diary.save_date}</td>
 		      <td>
 		      	<a href="javascript:edit_diary(${diary.diary_id})" type="button" class="btn btn-info">編集</a>

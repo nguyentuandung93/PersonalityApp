@@ -26,12 +26,6 @@
 		    <li class="nav-item">
 		        <a href="javascript:open_tab('edit')" id="tab_edit" class="nav-link">プロフィールを編集</a>
 		    </li>
-		    <li class="nav-item">
-		        <a href="javascript:open_tab('info')" id="tab_info" class="nav-link">お知らせ</a>
-		    </li>
-		    <li class="nav-item">
-		        <a href="javascript:open_tab('activity')" id="tab_activity" class="nav-link">アクティビティ</a>
-		    </li>
 		</ul><!-- tab_list -->
 		<div class="main-content my-2">
 			<div class="tab-pane active" id="profile">
@@ -49,7 +43,7 @@
 	                	<p>${userModel.getUsername()}</p>
 						</s:if>
 	                	<h6>自己紹介</h6>
-	                    <p>${userModel.getIntroduction()}</p>
+	                    <p style="white-space: pre-line">${userModel.getIntroduction()}</p>
 	                   </div>
 	                <div class="col-xs-12 col-sm-12 col-md-6 float-right">
 	                	<h6>基本</h6>
