@@ -1,6 +1,6 @@
 <html>
 <body>
 <h2>Error Page</h2>
-<p>Cannot found your page!</p>
+<p>エラーが発生しました。再確認してください。</p>
 </body>
 </html>

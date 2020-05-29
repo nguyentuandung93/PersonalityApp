@@ -65,7 +65,31 @@
 	});
 	function register() {
 		if (check_input() == 0) {
-			$("#frm_register").submit();
+			/* $("#frm_register").submit(); */
+			var file_data = $('#fileUpload').prop('files')[0];   
+		    var form_data = new FormData();
+		    form_data.append('fileUpload', file_data);
+		    form_data.append('loginModel.username', $("#loginModel_username").val());
+		    form_data.append('loginModel.password', $("#loginModel_password").val());
+			$.ajax({
+		      type: "POST",
+		      contentType: false,
+	          processData: false,
+		      url: "check_register",
+		      dataType: 'json',
+		      data: form_data,
+		      success: function (ret) {
+				if (ret == "true") {
+					alert("ユーザー登録出来ました。");
+					window.location.href = "<%=request.getContextPath()%>/login";
+				} else {
+					alert("ユーザー登録出来ませんでした。");
+				}
+		      },
+		      error: function (e) {
+		        alert('エラーが発生しました。');
+		      }
+		    });
 		}
 	}
 	

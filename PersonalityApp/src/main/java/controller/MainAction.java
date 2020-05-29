@@ -2,8 +2,6 @@ package controller;
 
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;

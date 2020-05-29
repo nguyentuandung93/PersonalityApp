@@ -2,18 +2,24 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
+
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.interceptor.ValidationAware;
 
 import dao.LoginDAO;
 import dao.LoginDAOImpl;
 import model.LoginModel;
 
-public class RegistAction extends ActionSupport implements ValidationAware {
+public class RegistAction extends ActionSupport implements SessionAware {
 	private static final long serialVersionUID = 1L;
+	private Map<String, Object> session;
+	
+
 	private LoginDAO loginDAO = new LoginDAOImpl();
 	private LoginModel loginModel = new LoginModel();
 	
@@ -22,6 +28,9 @@ public class RegistAction extends ActionSupport implements ValidationAware {
     private String fileUploadFileName;
     
 	private String uploadUserPath;
+	private String ret = "false";
+	
+
 	public RegistAction() {
 		ServletContext context = ServletActionContext.getServletContext();
 		String uploadPath = context.getRealPath("/upload");
@@ -43,35 +52,42 @@ public class RegistAction extends ActionSupport implements ValidationAware {
 	}
 
 	public String regist() {
-		if (loginModel.getUsername() != null) {
-			if (!loginDAO.issetUsername(loginModel.getUsername())) {
-				int i = fileUploadFileName.lastIndexOf('.');
-	            String image_real_name = fileUploadFileName.substring(0, i) + "_" + CommonController.getNow("yyyyMMddHHmmss") + "." + fileUploadFileName.substring(i + 1);
-				File desFile = new File(uploadUserPath, image_real_name);
-				try {
-	                FileUtils.copyFile(fileUpload, desFile);
-	                loginModel.setImage_real_name(image_real_name);
-	                loginModel.setImage_name(fileUploadFileName);
-	                loginModel.setRegist_date(CommonController.getNow());
-	                if (loginDAO.registUser(loginModel) > 0) {
-	                	FileUtils.forceDelete(fileUpload);
-		                return SUCCESS;
-	                } else {
-	                	return ERROR;
-	                }
-	            } catch (IOException ex) {
-	                System.out.println("「" + fileUploadFileName + "」ファイルのコピーが出来ませんでした。");
-	                ex.printStackTrace();
-	                return ERROR;
-	            }
-			} else {
-				return ERROR;
-			}
+		session = getSession();
+		String login_flg = (String) session.get("login_flg");
+		if (session != null && login_flg != null && login_flg == "1") {
+			return SUCCESS;
 		} else {
 			return INPUT;
 		}
 	}
 	
+	public String check_register() {
+		if (!loginDAO.issetUsername(loginModel.getUsername())) {
+			int i = fileUploadFileName.lastIndexOf('.');
+            String image_real_name = fileUploadFileName.substring(0, i) + "_" + CommonController.getNow("yyyyMMddHHmmss") + "." + fileUploadFileName.substring(i + 1);
+			File desFile = new File(uploadUserPath, image_real_name);
+			try {
+                FileUtils.copyFile(fileUpload, desFile);
+                loginModel.setImage_real_name(image_real_name);
+                loginModel.setImage_name(fileUploadFileName);
+                loginModel.setRegist_date(CommonController.getNow());
+                if (loginDAO.registUser(loginModel) > 0) {
+                	FileUtils.forceDelete(fileUpload);
+                	ret = "true";
+                }
+            } catch (IOException ex) {
+                System.out.println("「" + fileUploadFileName + "」ファイルのコピーが出来ませんでした。");
+            }
+		}
+		return SUCCESS;
+	}
+	public Map<String, Object> getSession() {
+		return session;
+	}
+
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
 	public LoginDAO getLoginDAO() {
 		return loginDAO;
 	}
@@ -106,5 +122,12 @@ public class RegistAction extends ActionSupport implements ValidationAware {
 
 	public void setFileUploadFileName(String fileUploadFileName) {
 		this.fileUploadFileName = fileUploadFileName;
+	}
+	public String getRet() {
+		return ret;
+	}
+
+	public void setRet(String ret) {
+		this.ret = ret;
 	}
 }

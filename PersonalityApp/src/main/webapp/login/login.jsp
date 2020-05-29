@@ -47,17 +47,41 @@
 		});
 	});
 	function login() {
+		if (input_check() == 0) {
+			$.ajax({
+		      type: "POST",
+		      url: "check_login",
+		      dataType: 'json',
+		      data: $("#frm_login").serialize(),
+		      success: function (ret) {
+				if (ret == "true") {
+					window.location.href = "<%=request.getContextPath()%>/main";
+				} else {
+					alert("ログインできませんでした。");
+				}
+		      },
+		      error: function (e) {
+		        alert('エラーが発生しました。');
+		      }
+		    });
+		}
+	}
+	
+	function input_check() {
+		var err_flg = 0;
 		var username = $("#loginModel_username").val();
 		var password = $("#loginModel_password").val();
 		if (username == '') {
 			alert('ユーザー名を入力してください。');
-		} else {
-			if (password == '') {
-				alert('パスワードを入力してください。');
-			} else {
-				$("#frm_login").submit();
-			}
+			err_flg++;
+			return err_flg;
 		}
+		if (password == '') {
+			alert('パスワードを入力してください。');
+			err_flg++;
+			return err_flg;
+		}
+		return err_flg;
 	}
 	
 	function register_form() {
